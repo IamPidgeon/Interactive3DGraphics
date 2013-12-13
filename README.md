@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 cs291
 =====
 
@@ -13,3 +14,9 @@ Changes that affect this code base, between the current three.js code, r58, and 
 * renderer.setClearColorHex should be changed to renderer.setClearColor (this is not backwards compatible).
 * OrbitAndPanControls.js: use OrbitAndPanControls.new.js for three.js r58 on.
 
+=======
+Interactive3DGraphics
+=====================
+
+Javascript work with WebGL using Three.js for Interactive 3D Graphics course on Udacity
+>>>>>>> 8399e05aac26eddb1bf9e5898fe028000221d2a9
