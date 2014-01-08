@@ -77,8 +77,8 @@ function fillScene() {
 	var sphere = new THREE.Mesh(
 		new THREE.SphereGeometry( 10, 32, 16 ), hourHandMaterial );
 	sphere.position.y = 18;	// move the hand above the other hand
-
-	// YOUR CODE HERE:
+	sphere.scale = new THREE.Vector3( 3.0, 0.2, 0.2 );
+	sphere.rotation.y = -150 * Math.PI/180;
 
 	scene.add( sphere );
 }

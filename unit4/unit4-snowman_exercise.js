@@ -50,12 +50,8 @@ function fillScene() {
 	var cylinder = new THREE.Mesh(
 		new THREE.CylinderGeometry( 2, 2, 60, 32 ), woodMaterial );
 
-	// YOUR CHANGES HERE
-	// These positions are given just so you can see the stick.
-	// You will need to reposition, etc.
-	cylinder.position.x = -20;
-	cylinder.position.y = 30;
-	cylinder.position.z = -55;
+	cylinder.rotation.x = 90 * Math.PI/180;
+	cylinder.position.y = 50;
 
 	scene.add( cylinder );
 }
