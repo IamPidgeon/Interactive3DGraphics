@@ -34,28 +34,45 @@ function fillScene() {
 
 	// get two diagonally-opposite corners of the cube and compute the
 	// cylinder axis direction and length
-	var maxCorner = new THREE.Vector3(  1, 1, 1 );
 	var minCorner = new THREE.Vector3( -1,-1,-1 );
-	// note how you can chain one operation on to another:
+	var maxCorner = new THREE.Vector3( 1, 1, 1 );
+
 	var cylAxis = new THREE.Vector3().subVectors( maxCorner, minCorner );
-	var cylLength = cylAxis.length();
+		var cylLength = cylAxis.length();
 
-	// take dot product of cylAxis and up vector to get cosine of angle
 	cylAxis.normalize();
-	var theta = Math.acos( cylAxis.dot( new THREE.Vector3(0,1,0) ) );
-	// or just simply theta = Math.acos( cylAxis.y );
+	// take dot product of cylAxis and up vector to get cosine of angle
+	var theta = Math.acos( cylAxis.y );
+	// should be theta = Math.acos( cylAxis.dot( new THREE.Vector3(0,1,0) ) );
 
-	// YOUR CODE HERE
-	var cylinder = new THREE.Mesh(
-		new THREE.CylinderGeometry( 0.2, 0.2, cylLength, 32 ), cylinderMaterial );
-	var rotationAxis = new THREE.Vector3(1,0,-1);
-	// makeRotationAxis wants its axis normalized
-	rotationAxis.normalize();
-	// don't use position, rotation, scale
-	cylinder.matrixAutoUpdate = false;
-	cylinder.matrix.makeRotationAxis( rotationAxis, theta );
-	scene.add( cylinder );
+	var rotationAxis = new THREE.Vector3();
 
+	for (var i = 0; i<4; i++) {
+			if (i % 2 == 1) { 
+					minCorner.x = -minCorner.x;
+					maxCorner.x = -maxCorner.x;
+			}
+			else { 
+					minCorner.z = -minCorner.z;
+					maxCorner.z = -maxCorner.z; 
+			}
+
+			// note how you can chain one operation on to another:
+			cylAxis = new THREE.Vector3().subVectors( maxCorner, minCorner );
+			cylAxis.normalize();
+
+			var cylinder = new THREE.Mesh(
+					new THREE.CylinderGeometry( 0.2, 0.2, cylLength, 32 ), cylinderMaterial );
+
+			rotationAxis.crossVectors(cylAxis, new THREE.Vector3(0,1,0) );
+
+			// makeRotationAxis wants its axis normalized
+			rotationAxis.normalize();
+			// don't use position, rotation, scale
+			cylinder.matrixAutoUpdate = false;
+			cylinder.matrix.makeRotationAxis( rotationAxis, theta );
+			scene.add( cylinder );
+		}
 }
 
 function drawHelpers() {
