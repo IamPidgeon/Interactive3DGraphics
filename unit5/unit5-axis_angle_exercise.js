@@ -38,14 +38,15 @@ function fillScene() {
 	var maxCorner = new THREE.Vector3( 1, 1, 1 );
 
 	var cylAxis = new THREE.Vector3().subVectors( maxCorner, minCorner );
-		var cylLength = cylAxis.length();
-
+	var cylLength = cylAxis.length();
 	cylAxis.normalize();
+
 	// take dot product of cylAxis and up vector to get cosine of angle
 	var theta = Math.acos( cylAxis.y );
 	// should be theta = Math.acos( cylAxis.dot( new THREE.Vector3(0,1,0) ) );
 
 	var rotationAxis = new THREE.Vector3();
+	var cylinder;
 
 	for (var i = 0; i<4; i++) {
 			if (i % 2 == 1) { 
@@ -57,14 +58,10 @@ function fillScene() {
 					maxCorner.z = -maxCorner.z; 
 			}
 
-			// note how you can chain one operation on to another:
-			cylAxis = new THREE.Vector3().subVectors( maxCorner, minCorner );
-			cylAxis.normalize();
-
-			var cylinder = new THREE.Mesh(
+			cylinder = new THREE.Mesh(
 					new THREE.CylinderGeometry( 0.2, 0.2, cylLength, 32 ), cylinderMaterial );
 
-			rotationAxis.crossVectors(cylAxis, new THREE.Vector3(0,1,0) );
+			rotationAxis.crossVectors(new THREE.Vector3(maxCorner.x, 1, maxCorner.z).normalize(), new THREE.Vector3(0,1,0) );
 
 			// makeRotationAxis wants its axis normalized
 			rotationAxis.normalize();
@@ -72,7 +69,7 @@ function fillScene() {
 			cylinder.matrixAutoUpdate = false;
 			cylinder.matrix.makeRotationAxis( rotationAxis, theta );
 			scene.add( cylinder );
-		}
+	}
 }
 
 function drawHelpers() {
